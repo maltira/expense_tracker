@@ -11,7 +11,7 @@ class Chart extends StatelessWidget {
 
   List<ExpenseBucket> get buckets {
     return [
-      ExpenseBucket.forCategory(expenses, Categories.food),
+      ExpenseBucket.forCategory(expenses, Categories.food), // получаем все элементы этой категории
       ExpenseBucket.forCategory(expenses, Categories.leisure),
       ExpenseBucket.forCategory(expenses, Categories.travel),
       ExpenseBucket.forCategory(expenses, Categories.work),
@@ -22,7 +22,7 @@ class Chart extends StatelessWidget {
     double maxTotalExpense = 0;
 
     for (final bucket in buckets) {
-      if (bucket.totalExpenses > maxTotalExpense) {
+      if (bucket.totalExpenses > maxTotalExpense) { // считаем сумму каждой категории
         maxTotalExpense = bucket.totalExpenses;
       }
     }
@@ -32,8 +32,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final isDarkMode = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(
@@ -64,6 +63,7 @@ class Chart extends StatelessWidget {
                     fill: bucket.totalExpenses == 0
                         ? 0
                         : bucket.totalExpenses / maxTotalExpense,
+                    totalSum: bucket.totalExpenses,
                   )
               ],
             ),
